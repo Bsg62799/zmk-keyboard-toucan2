@@ -9,6 +9,20 @@
 #define ADJ  3
 
 / {
+    behaviors {
+        hm_mt: home_row_mod {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <250>;
+            quick-tap-ms = <175>;
+            bindings = <&kp>, <&kp>;
+        };
+    };
+};
+
+
+/ {
     conditional_layers {
         compatible = "zmk,conditional-layers";
 
@@ -24,7 +38,7 @@
         base {
             display-name = "BASE";
             bindings = <
-&none  &kp Q  &kp W  &kp F  &kp P  &kp B  &kp J  &kp L  &kp U  &kp Y  &kp SQT  &none  &none  &mt LEFT_WIN A  &mt LEFT_ALT R  &mt LCTRL S  &mt LEFT_SHIFT T  &kp G  &kp M  &mt RSHFT N  &mt RCTRL E  &mt RIGHT_ALT I  &mt RWIN O  &none  &none  &kp Z  &kp X  &kp C  &kp D  &kp V  &kp K  &kp H  &kp COMMA  &kp DOT  &kp FSLH  &none  &lt 2 ESC  &lt 1 SPACE  &lt 5 TAB  &lt 3 ENTER  &lt 6 BACKSPACE  &lt 7 DELETE
+&none  &kp Q  &kp W  &kp F  &kp P  &kp B  &kp J  &kp L  &kp U  &kp Y  &kp SQT  &none  &none  &hm_mt LEFT_WIN A  &hm_mt LEFT_ALT R  &hm_mt LCTRL S  &hm_mt LEFT_SHIFT T  &kp G  &kp M  hm_&mt RSHFT N  &hm_mt RCTRL E  &hm_mt RIGHT_ALT I  &hm_mt RWIN O  &none  &none  &kp Z  &kp X  &kp C  &kp D  &kp V  &kp K  &kp H  &kp COMMA  &kp DOT  &kp FSLH  &none  &lt 2 ESC  &lt 1 SPACE  &lt 5 TAB  &lt 3 ENTER  &lt 6 BACKSPACE  &lt 7 DELETE
             >;
         };
 
