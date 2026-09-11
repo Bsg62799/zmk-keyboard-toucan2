@@ -3,13 +3,8 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
 
-#define BASE 0
-#define NAV  1
-#define SYM  2
-#define ADJ  3
 
 / {
-
      behaviors {
         hm_mt: home_row_mod {
             compatible = "zmk,behavior-hold-tap";
@@ -21,22 +16,13 @@
         };
     };
 
-    conditional_layers {
-        compatible = "zmk,conditional-layers";
-
-        tri_layer {
-            if-layers = <5 5>;
-            then-layer = <5>;
-        };
-    };
-
     keymap {
         compatible = "zmk,keymap";
 
         base {
             display-name = "BASE";
             bindings = <
-&none  &kp Q  &kp W  &kp F  &kp P  &kp B  &kp J  &kp L  &kp U  &kp Y  &kp SQT  &none  &none  &hm_mt LEFT_WIN A  &hm_mt LEFT_ALT R  &hm_mt LCTRL S  &hm_mt LEFT_SHIFT T  &kp G  &kp M  hm_&mt RSHFT N  &hm_mt RCTRL E  &hm_mt RIGHT_ALT I  &hm_mt RWIN O  &none  &none  &kp Z  &kp X  &kp C  &kp D  &kp V  &kp K  &kp H  &kp COMMA  &kp DOT  &kp FSLH  &none  &lt 2 ESC  &lt 1 SPACE  &lt 5 TAB  &lt 3 ENTER  &lt 6 BACKSPACE  &lt 7 DELETE
+&none  &kp Q  &kp W  &kp F  &kp P  &kp B  &kp J  &kp L  &kp U  &kp Y  &kp SQT  &none  &none  &hm_mt LEFT_WIN A  &hm_mt LEFT_ALT R  &hm_mt LCTRL S  &hm_mt LEFT_SHIFT T  &kp G  &kp M  &hm_mt RSHFT N  &hm_mt RCTRL E  &hm_mt RIGHT_ALT I  &hm_mt RWIN O  &none  &none  &kp Z  &kp X  &kp C  &kp D  &kp V  &kp K  &kp H  &kp COMMA  &kp DOT  &kp FSLH  &none  &lt 2 ESC  &lt 1 SPACE  &lt 5 TAB  &lt 3 ENTER  &lt 6 BACKSPACE  &lt 7 DELETE
             >;
         };
 
