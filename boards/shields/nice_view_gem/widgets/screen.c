@@ -20,6 +20,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/keymap.h>
 #include <zmk/usb.h>
 #include <zmk/split/central.h>
+#include <anti_idle_generic.h>
 
 #if defined(CONFIG_TOUCAN_STATUS_SCREEN) && CONFIG_TOUCAN_STATUS_SCREEN == 2
 #include "battery_arc.h"
@@ -44,6 +45,9 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 #include "screen.h"
 #include "sleep.h"
+#include "../assets/custom_fonts.h"
+
+#define ANTI_IDLE_STATUS_POLL_MS 1000
 
 struct connection_status_state {
     bool connected;
@@ -73,6 +77,38 @@ static void draw_top(lv_obj_t *widget, lv_color_t cbuf[], const struct status_st
     draw_profile_status(canvas, state);
     draw_battery_status(canvas, state);
     draw_battery_peripheral_status(canvas, state);
+    if (state->anti_idle_status_initialized) {
+        lv_draw_label_dsc_t label_dsc;
+        init_label_dsc(&label_dsc, LVGL_FOREGROUND, &quinquefive_8, LV_TEXT_ALIGN_CENTER);
+        lv_canvas_draw_text(canvas, 36, 128, 72, &label_dsc,
+                            state->anti_idle_enabled ? "AI ON" : "AI OFF");
+    }
+}
+
+static void anti_idle_status_poll(struct k_work *work);
+K_WORK_DELAYABLE_DEFINE(anti_idle_status_work, anti_idle_status_poll);
+
+static void anti_idle_status_poll(struct k_work *work) {
+    (void)work;
+
+    bool enabled;
+    int err = zmk_anti_idle_get_state(&enabled);
+    if (err) {
+        LOG_ERR("Failed to get anti-idle state for display: %d", err);
+    } else {
+        struct zmk_widget_screen *widget;
+        SYS_SLIST_FOR_EACH_CONTAINER(&widgets, widget, node) {
+            bool changed = !widget->state.anti_idle_status_initialized ||
+                           widget->state.anti_idle_enabled != enabled;
+            widget->state.anti_idle_enabled = enabled;
+            widget->state.anti_idle_status_initialized = true;
+            if (changed) {
+                draw_top(widget->obj, widget->cbuf, &widget->state);
+            }
+        }
+    }
+
+    k_work_reschedule(&anti_idle_status_work, K_MSEC(ANTI_IDLE_STATUS_POLL_MS));
 }
 
 /**
@@ -305,8 +341,9 @@ int zmk_widget_screen_init(struct zmk_widget_screen *widget, lv_obj_t *parent) {
     widget_chart_status_init();
     #endif
 
+    k_work_reschedule(&anti_idle_status_work, K_MSEC(ANTI_IDLE_STATUS_POLL_MS));
+
     return 0;
 }
 
 lv_obj_t *zmk_widget_screen_obj(struct zmk_widget_screen *widget) { return widget->obj; }
-
