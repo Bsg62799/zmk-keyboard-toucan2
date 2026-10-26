@@ -5,6 +5,16 @@
 
 
 / {
+    combos {
+        compatible = "zmk,combos";
+
+        gaming {
+            timeout-ms = <250>;
+            key-positions = <36 41>;
+            bindings = <&to 8>;
+        };
+    };
+
      behaviors {
         hm_mt: home_row_mod {
             compatible = "zmk,behavior-hold-tap";
@@ -72,6 +82,16 @@
             display-name = "FUN";
             bindings = <
 &none  &kp F12  &kp F7  &kp F8  &kp F9  &kp PRINTSCREEN  &none  &none  &none  &none  &none  &none  &none  &kp F11  &kp F4  &kp F5  &kp F6  &kp SCROLLLOCK  &none  &none  &none  &none  &none  &none  &none  &kp F10  &kp F1  &kp F2  &kp F3  &kp PAUSE_BREAK  &none  &none  &none  &none  &none  &none  &kp HOME  &kp SPACE  &kp TAB  &none  &none  &none
+            >;
+        };
+
+        game {
+            display-name = "GAME";
+            bindings = <
+&none     &kp TAB   &kp N1    &kp N2    &kp N3    &kp N4    &kp N5  &kp N6  &kp N7  &kp N8  &to 0  &none
+&none     &kp LSHFT &kp Q     &kp W     &kp E     &kp R     &kp T   &kp Y   &kp U   &kp I   &kp O  &none
+&none     &kp LCTRL &kp A     &kp S     &kp D     &kp F     &kp G   &kp H   &kp J   &kp K   &kp L  &none
+&none     &kp PG_UP &kp PG_DN &trans    &trans    &none
             >;
         };
     };
