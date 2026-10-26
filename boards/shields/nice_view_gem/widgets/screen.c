@@ -80,7 +80,7 @@ static void draw_top(lv_obj_t *widget, lv_color_t cbuf[], const struct status_st
     if (state->anti_idle_status_initialized) {
         lv_draw_label_dsc_t label_dsc;
         init_label_dsc(&label_dsc, LVGL_FOREGROUND, &quinquefive_8, LV_TEXT_ALIGN_CENTER);
-        lv_canvas_draw_text(canvas, 36, 128, 72, &label_dsc,
+        lv_canvas_draw_text(canvas, 36, 104, 72, &label_dsc,
                             state->anti_idle_enabled ? "AI ON" : "AI OFF");
     }
 }
