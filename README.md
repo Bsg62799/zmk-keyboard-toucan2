@@ -5,7 +5,7 @@
 # Customizations
 
 - **Keymap**: [config/toucan.keymap](config/toucan.keymap)
-- **Anti-idle**: toggle on the outer-right thumb key in the GAME layer; enabled mode sends a paired mouse movement every 60 seconds
+- **Anti-idle**: toggle on the outer-right thumb key in the GAME layer; enabled mode sends a paired mouse movement every 60 seconds on a fixed schedule, regardless of keyboard activity
 - **General configs**: [boards/shields/toucan/toucan_left.conf](boards/shields/toucan/toucan_left.conf) and [boards/shields/toucan/toucan_right.conf](boards/shields/toucan/toucan_right.conf)
 - **Swipe shortcuts**: the `swipe_button_mapper` node in [boards/shields/toucan/toucan.dtsi](boards/shields/toucan/toucan.dtsi)
 - **Invert scroll / trackpad settings**: the `tps43_trackpad` node in [boards/shields/toucan/toucan_right.overlay](boards/shields/toucan/toucan_right.overlay)

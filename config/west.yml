@@ -8,8 +8,8 @@ manifest:
       url-base: https://github.com/geeksville
     - name: beekeeb
       url-base: https://github.com/beekeeb
-    - name: kbrd-space
-      url-base: https://github.com/kbrd-space
+    - name: bsg62799
+      url-base: https://github.com/Bsg62799
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -25,7 +25,7 @@ manifest:
       remote: beekeeb
       revision: main
     - name: zmk-anti-idle
-      remote: kbrd-space
-      revision: main
+      remote: bsg62799
+      revision: 0a2b2b81288c6e5c1cded293d0f73e7fb4c20081
   self:
     path: config
